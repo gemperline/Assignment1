@@ -1,3 +1,6 @@
+// Adam Gemperline
+// Section 3
+
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -74,26 +77,6 @@ void display(PERSON P[], int SIZE)
 
 
 
-void readArray(PERSON p[], int SIZE)
-{
-  ifstream inFile;
-  inFile.open("data.txt");
-
-  // traverse the array, create new person, read data, store data
-  for(int i = 0; i < SIZE; i++)
-  {
-    string fName;
-    string lName;
-    string fullName;
-
-    // read name to local members, read balance to struct, then copy name to struct
-    inFile >> fName >> lName >> p[i].balance;
-    fullName = fName + " " + lName;
-    strcpy(p[i].Name, fullName.c_str());
-  }
-  inFile.close();
-}
-
 void newCopy(string fileName, PERSON P[], int SIZE)
 {
   ofstream outFile;
@@ -108,12 +91,41 @@ void newCopy(string fileName, PERSON P[], int SIZE)
 }
 
 
+
+PERSON * readData(PERSON P[], int & N)
+{
+  PERSON * tempPtr;
+  tempPtr = P;
+
+  ifstream inFile;
+  inFile.open("data.txt");
+
+  // traverse the array, create new person, read data, store data
+  for(int i = 0; i < N; i++)
+  {
+    string fName;
+    string lName;
+    string fullName;
+
+    // read name to local members, read balance to struct, then copy name to struct
+    inFile >> fName >> lName >> P[i].balance;
+    fullName = fName + " " + lName;
+    strcpy(P[i].Name, fullName.c_str());
+  }
+  inFile.close();
+
+  return P;
+}
+
+
+
 int main()
 {
   ifstream inFile;
   char custName[20];
   string line;
   int numRecords = 0;
+
   inFile.open("data.txt");
 
   if(inFile.is_open())
@@ -127,18 +139,25 @@ int main()
     }
     inFile.close();
 
-    // create array of type PERSON
-    PERSON P[numRecords];
+    // create a dynamic array of type PERSON
+    PERSON * P = new PERSON[numRecords];
 
-    readArray(P, numRecords);
+    // pass array address into read function
+    readData(P, numRecords);
+
+    // display the array
     display(P, numRecords);
+
+    // search the array to determine richest person
     findRichest(P, numRecords);
 
     cout << "Enter your full name to deposit money:" << endl;
     getline(cin, line);
     strcpy(custName, line.c_str());
+
     deposit(custName, P, numRecords);
 
+    // update the input file with new balance
     newCopy("data.txt", P, numRecords);
 
   return 0;
