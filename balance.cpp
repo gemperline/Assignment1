@@ -92,7 +92,7 @@ void newCopy(string fileName, PERSON P[], int SIZE)
 
 
 
-PERSON * readData(PERSON P[], int & N)
+PERSON * readData(PERSON P[], int N)
 {
   PERSON * tempPtr;
 
