@@ -129,15 +129,17 @@ void countRecords(int &numRecords)
   if(inFile.is_open())
   {
     cout << "File opened successfully\n" << endl;
-  }
-    // determine number of records
-  while(getline(inFile, line))
-  {
-    numRecords++;
-  }
 
-  numRecords--;
-  inFile.close();
+    while(getline(inFile, line))
+    {
+      numRecords++;
+    }
+    inFile.close();
+  }
+  else
+    cout << "ERROR: could not open file" << endl;
+
+  cout << "NUM RECORDS: " << numRecords << endl;
 }
 
 
