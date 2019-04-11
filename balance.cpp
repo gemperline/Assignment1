@@ -95,7 +95,6 @@ void newCopy(string fileName, PERSON P[], int SIZE)
 PERSON * readData(PERSON P[], int & N)
 {
   PERSON * tempPtr;
-  tempPtr = P;
 
   ifstream inFile;
   inFile.open("data.txt");
@@ -119,12 +118,11 @@ PERSON * readData(PERSON P[], int & N)
 
 
 
-int main()
+void countRecords(int &numRecords)
 {
-  ifstream inFile;
-  char custName[20];
+  // open the data file and read the number of records (1 records per line)
   string line;
-  int numRecords = 0;
+  ifstream inFile;
 
   inFile.open("data.txt");
 
@@ -133,11 +131,25 @@ int main()
     cout << "File opened successfully\n" << endl;
   }
     // determine number of records
-    while(getline(inFile, line))
-    {
-      numRecords++;
-    }
-    inFile.close();
+  while(getline(inFile, line))
+  {
+    numRecords++;
+  }
+
+  numRecords--;
+  inFile.close();
+}
+
+
+
+int main()
+{
+  string line;
+  char custName[20];
+  int numRecords = 0;
+
+  // open data file and count records
+    countRecords(numRecords);
 
     // create a dynamic array of type PERSON
     PERSON * P = new PERSON[numRecords];
