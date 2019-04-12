@@ -91,19 +91,14 @@ PERSON * readData(PERSON P[], int N)
   // traverse the array, create new person, read data, store data
   for(int i = 0; i < N; i++)
   {
-    char fName[9];
-    char lName[10];
-
+    string fName;
+    string lName;
+    string fullName;
     // read name to local members, read balance to struct, then copy name to struct
     inFile >> fName >> lName >> P[i].balance;
 
-//    int fNameSize = fName.size();
-  //  int lNameSize = lName.size();
-//    int fullNameSize = fNameSize + lNameSize;
+    fullName = fName.substr(0,8) + " " +  lName.substr(0,9);
 
-    string fullName(fName);
-
-  //  fullName = fName + lName;
     strcpy(P[i].Name, fullName.c_str());
   }
   inFile.close();
