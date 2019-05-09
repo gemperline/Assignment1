@@ -183,5 +183,6 @@ int main()
     // update the input file with new balance
     newCopy("data.txt", P, numRecords);
 
+  delete [] PERSON;
   return 0;
 }
