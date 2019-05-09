@@ -44,7 +44,7 @@ void findRichest(PERSON P[],int SIZE)
 
   for(int i = 1; i < SIZE; i++)
   {
-    if (P[0].balance < P[i+1].balance)
+    if (P[0].balance < P[i].balance)
       richest = i;
   }
 
